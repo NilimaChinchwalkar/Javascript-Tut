@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Duplicate from Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        span {
+            font-weight: bold;
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Remove Duplicate from Array</h1>
+        <p>Original Array: <span id="originalArray"></span></p>
+        <p>Array without Duplicates: <span id="uniqueArray"></span></p>
+        <p>Duplicate Values: <span id="duplicateVal"></span></p>
+    </div>
+
+    <script>
+        let arr = ["scale", "happy", "strength", "peace", "strength", "happy"];
+        const uniqueArray = [];
+        const duplicateValues = [];
+
+        // Function to remove duplicates from an array
+        function removeDuplicates(arr) {
+            for (let i = 0; i < arr.length; i++) {
+                let isDuplicate = false;
+                // Check if the element already exists in the uniqueArray
+                for (let j = 0; j < uniqueArray.length; j++) {
+                    if (arr[i] === uniqueArray[j]) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                // If not a duplicate, add it to the uniqueArray
+                if (!isDuplicate) {
+                    uniqueArray.push(arr[i]);
+                } else {
+                    if (!duplicateValues.includes(arr[i])) {
+                        duplicateValues.push(arr[i]);
+                    }
+                }
+            }
+        }
+
+        // Remove duplicates
+        removeDuplicates(arr);
+
+        // Display original, unique arrays, and duplicates
+        document.getElementById("originalArray").textContent = `[ ${arr.map(item => `"${item}"`).join(", ")} ]`;
+        document.getElementById("uniqueArray").textContent = `[ ${uniqueArray.map(item => `"${item}"`).join(", ")} ]`;
+        document.getElementById("duplicateVal").textContent = duplicateValues.join(", ");
+    </script>
+</body>
+
+</html>

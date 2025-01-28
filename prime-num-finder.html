@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                   initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .utility_flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            height: 300px;
+            width: 400px;
+            background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .outer-box {
+            height: 80vh;
+        }
+
+        .inner-box {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .btn-container {
+            gap: 15px;
+        }
+
+        .logo-text {
+            color: #007acc;
+            font-weight: bold;
+            font-size: 1.8em;
+        }
+
+        .gfglogo {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-style {
+            width: 120px;
+            height: 40px;
+            background: #0288d1;
+            border-radius: 25px;
+            color: white;
+            text-align: center;
+            padding: 3px;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-style:hover {
+            background: #0277bd;
+        }
+
+        .message {
+            background-color: white;
+            height: 50px;
+            text-align: center;
+            color: #01579b;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            height: 50px;
+            width: 300px;
+            border: 2px solid #0277bd;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #0288d1;
+            outline: none;
+        }
+
+        input.error {
+            border-color: #f44336;
+        }
+
+        .para-text {
+            padding: 20px;
+        }
+
+        .sub-heading {
+            color: #01579b;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-box utility_flex">
+        <div class="box">
+            <div class="inner-box utility_flex">
+                <div class="gfglogo utility_flex">
+                    <h1 class="logo-text">
+                        Prime Number Finder
+                    </h1>
+                </div>
+
+                <div class="input-container">
+
+                    <input type="number" class="input-feild" id="input-id"
+                        placeholder="Enter the number you want to check">
+                </div>
+
+                <div class="btn-container utility_flex ">
+                    <button class="btn-clear btn-style" id="btnClear">
+                        Clear
+                    </button>
+                    <button class="btn-submit btn-style" id="btnSubmit">
+                        Submit
+                    </button>
+                </div>
+
+            </div>
+            <div class="para-text">
+                <p class="message" id="dom-msg">
+                    Result
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script>
+        document.getElementById('btnSubmit').addEventListener('click', function () {
+            const input = document.getElementById('input-id').value;
+            const message = document.getElementById('dom-msg');
+
+            if (input === "") {
+                message.textContent = "Please enter a number.";
+                input.classList.add('error');
+                return;
+            }
+
+            const number = parseInt(input);
+
+            if (number <= 1) {
+                message.textContent = `${number} is not a prime number.`;
+                return;
+            }
+
+            let isPrime = true;
+            for (let i = 2; i <= Math.sqrt(number); i++) {
+                if (number % i === 0) {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            message.textContent = isPrime ? `${number} is a prime number.` : `${number} is not a prime number.`;
+        });
+
+        document.getElementById('btnClear').addEventListener('click', function () {
+            document.getElementById('input-id').value = "";
+            document.getElementById('dom-msg').textContent = "Result";
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                   initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .utility_flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            height: 400px;
+            width: 400px;
+            background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .outer-box {
+            height: 100vh;
+        }
+
+        .inner-box {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .btn-container {
+            gap: 15px;
+        }
+
+        .logo-text {
+            color: #007acc;
+            font-weight: bold;
+            font-size: 1.8em;
+        }
+
+        .gfglogo {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            background-color: white;
+            height: 50px;
+            text-align: center;
+            color: #01579b;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            height: 50px;
+            width: 300px;
+            border: 2px solid #0277bd;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            margin-bottom: 10px;
+        }
+
+        input:focus {
+            border-color: #0288d1;
+            outline: none;
+        }
+
+        input.error {
+            border-color: #f44336;
+        }
+
+        #error{
+            margin: 10px;
+        }
+
+        .para-text {
+            padding: 20px;
+        }
+
+        .sub-heading {
+            color: #01579b;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-box utility_flex">
+        <div class="box">
+            <div class="inner-box utility_flex">
+                <div class="gfglogo utility_flex">
+                    <h1 class="logo-text">
+                        Percentage Calculator
+                    </h1>
+                </div>
+
+                <form id="calcForm" action="#" method="POST">
+                    <div class="input-container">
+                        <input type="text" class="input-feild" id="number" placeholder="Enter the number">
+                    </div>
+                    <div class="input-container">
+                        <input type="text" class="input-feild" id="percent" placeholder="Enter the Percentage">
+                    </div>
+
+                    <div id="error" class="loading" style="display: none;"></div>
+                    <div class="btn-container utility_flex ">
+                        <button type="button" class="btn btn-danger" id="resetButton" onclick="resetForm()">
+                            Clear
+                        </button>
+                        <button type="button" class="btn btn-success" id="calculateButton" onclick="calculatePercentage()">
+                            Calculate
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="para-text">
+                <p class="message" id="result">
+                    Result
+                </p>
+                <div id="loading" class="loading" style="display: none;">Calculating...</div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="script.js"></script> -->
+    <script>
+
+        function calculatePercentage() {
+            // Get input values
+            let number = parseFloat(document.getElementById('number').value);
+            let percent = parseFloat(document.getElementById('percent').value);
+
+            // Validate inputs
+            if (isNaN(number) || isNaN(percent)) {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').style.color = 'red';
+                document.getElementById('error').textContent = "Please enter valid numbers for both fields.";
+                return;
+            }
+
+            // Show the loading message
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+
+            // Simulate calculation delay (optional)
+            setTimeout(function () {
+                // Calculate percentage
+                let result = (number * percent) / 100;
+                // Display result with two decimal places
+                document.getElementById('result').textContent = result.toFixed(2);
+                // Hide loading message
+                document.getElementById('loading').style.display = 'none';
+            }, 500); // Delay of 500ms to show loading
+        }
+
+        // Function to reset the form
+        function resetForm() {
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('calcForm').reset(); // Clear input fields
+            document.getElementById('result').textContent = '0'; // Reset result
+            document.getElementById('loading').style.display = 'none'; // Hide loading message
+        }
+    </script>
+</body>
+
+</html>

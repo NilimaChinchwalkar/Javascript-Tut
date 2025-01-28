@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Count Occurrences of All Items in an Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        span {
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #004494;
+        }
+
+        .highlight {
+            background-color: #ffeb3b;
+            /* Highlight the row */
+        }
+
+        .clear-button {
+            background-color: #e57373;
+            /* Red color for Clear button */
+        }
+
+        .clear-button:hover {
+            background-color: #f44336;
+            /* Darker red on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Item Occurrences in Array</h1>
+        <p>Enter Items (separate them by commas):</p>
+        <input type="text" id="inputArray" placeholder="e.g., apple, banana, apple, mango">
+        <button onclick="updateArray()">Count Occurrences</button>
+        <button onclick="clearArray()" class="clear-button">Clear</button>
+        <table id="occurrenceTable">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Occurrences</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        function updateArray() {
+            const inputValue = document.getElementById("inputArray").value;
+            const fruitsArray = inputValue.split(',').map(item => item.trim());
+
+            const result = countOccurrences(fruitsArray);
+            displayOccurrences(result);
+        }
+
+        function countOccurrences(arr) {
+            const occurrences = {};
+
+            for (let i = 0; i < arr.length; i++) {
+                const item = arr[i];
+                if (occurrences[item] === undefined) {
+                    occurrences[item] = 1;
+                } else {
+                    occurrences[item]++;
+                }
+            }
+
+            return occurrences;
+        }
+
+        function displayOccurrences(occurrences) {
+        const tableBody = document.querySelector("#occurrenceTable tbody");
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        let maxCount = 0;
+        let mostFrequentItem = '';
+
+        // Sort items based on occurrences in descending order
+        const sortedItems = Object.entries(occurrences).sort((a, b) => b[1] - a[1]);
+
+        // Find the most frequent item
+        mostFrequentItem = sortedItems[0][0];
+
+        // Populate the table and highlight the most frequent item
+        sortedItems.forEach(([item, count]) => {
+          const row = document.createElement("tr");
+          
+          // Highlight the most frequent item
+          if (item === mostFrequentItem) {
+            row.classList.add("highlight");
+          }
+
+          const itemCell = document.createElement("td");
+          itemCell.textContent = item;
+
+          const countCell = document.createElement("td");
+          countCell.textContent = count;
+
+          row.appendChild(itemCell);
+          row.appendChild(countCell);
+
+          tableBody.appendChild(row);
+        });
+      }
+
+        function clearArray() {
+            document.getElementById("inputArray").value = ''; // Clear the input field
+            document.getElementById("originalArray").textContent = ''; // Clear the displayed original array
+            document.querySelector("#occurrenceTable tbody").innerHTML = ''; // Clear the table
+        }
+    </script>
+</body>
+
+</html>
