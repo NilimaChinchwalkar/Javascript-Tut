@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <title>Character Occurrences</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f7f7f7;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 50px auto;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                box-sizing: border-box;
+            }
+
+            button {
+                background-color: #0056b3;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                margin: 10px 10px;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #004494;
+            }
+
+            .clear-button {
+                background-color: #e57373;
+            }
+
+            .clear-button:hover {
+                background-color: #e53935;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                text-align: left;
+            }
+
+            th, td {
+                padding: 12px;
+                border: 1px solid #ddd;
+                text-align: center;
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Character Occurrences in String</h1>
+            <input type="text" id="inputArray" placeholder="Enter a string">
+            <div style="text-align: center;">
+                <button onclick="countCharOuccerence()">Count Occurrences</button>
+                <button onclick="clearArray()" class="clear-button">Clear</button>
+            </div>
+            <table id="occurrenceTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Occurrences</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <script>
+            function countCharOuccerence(){
+                let inputValue = document.getElementById("inputArray").value; 
+                
+                inputValue = inputValue.replace(/\s+/g, ''); 
+
+                let stringArray = inputValue.split('');
+
+                const occurrences = {};
+                for (let i = 0; i < stringArray.length; i++) {
+                    const item = stringArray[i];
+                    if (occurrences[item] === undefined) {
+                        occurrences[item] = 1;
+                    } else {
+                        occurrences[item]++;
+                    }
+                }
+                displayOccurrences(occurrences);
+            }
+
+            function displayOccurrences(occurrences){
+                const tableBody = document.querySelector("#occurrenceTable tbody");
+                tableBody.innerHTML = '';
+
+                for(let char in occurrences){
+                    const row = document.createElement("tr");
+
+                    const cell1 = document.createElement("td");
+                    cell1.textContent = char;
+                    row.appendChild(cell1);
+
+                    const cell2 = document.createElement("td");
+                    cell2.textContent = occurrences[char];
+                    row.appendChild(cell2);
+
+                    tableBody.appendChild(row);
+                }
+            }
+
+            function clearArray() {
+                document.getElementById("inputArray").value = '';
+                document.querySelector("#occurrenceTable tbody").innerHTML = ''; // Clear the table
+            }
+        </script>
+    </body>
+</html>
